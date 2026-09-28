@@ -49,7 +49,7 @@
             }
 
             alunos.Add(aluno);
-            notas.Add(new double[3]);
+            notas.Add(new double[] {-1 , -1, -1});
             Console.WriteLine($"Aluno '{aluno}' cadastrado com sucesso!\n");
         }
     }
@@ -155,7 +155,15 @@
                 continue;
             }
 
+            if (notas[index][0] == -1)
+            {
+                Console.WriteLine($"\nO aluno '{alunos[index]}' ainda não possui notas cadastradas. Cadastre na opção de número 2\n");
+                continue;
+            }
+
             double soma = 0;
+
+
             for (int i = 0; i < 3; i++)
             {
                 soma += notas[index][i];
