@@ -2,6 +2,8 @@
 {
     static List<String> alunos = new List<String>();
     static List<double[]> notas = new List<double[]>();
+    const double MEDIA_APROVACAO = 7.0;
+    const double MEDIA_RECUPERACAO = 5.0;
 
     static void Main()
     {
@@ -177,17 +179,14 @@
 
     private static void ExibirSituacao(double media)
     {
-        if (media >= 7.0)
+
+        string situacao = media switch
         {
-            Console.WriteLine("Situação: Aprovado\n");
-        }
-        else if (media >= 5.0)
-        {
-            Console.WriteLine("Situação: Recuperação\n");
-        }
-        else
-        {
-            Console.WriteLine("Situação: Reprovado\n");
-        }
+            >= MEDIA_APROVACAO => "Aprovado",
+            >= MEDIA_RECUPERACAO => "Recuperação",
+            _ => "Reprovado"
+        };
+
+        Console.WriteLine($"Situação: {situacao}\n");
     }
 }
