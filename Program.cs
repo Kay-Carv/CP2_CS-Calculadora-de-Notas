@@ -137,19 +137,17 @@
                 j++;
             }
 
-            Console.WriteLine("\nDigite o NOME do aluno para calcular a média (ou aperte Enter para voltar):");
-            string? nomeBusca = Console.ReadLine();
+            Console.WriteLine("\nDigite o ID do aluno para calcular a média (ou aperte Enter para voltar):");
+            string? idBusca = Console.ReadLine();
 
-            if (string.IsNullOrWhiteSpace(nomeBusca))
+            if (string.IsNullOrWhiteSpace(idBusca))
             {
                 break;
             }
 
-            int index = alunos.FindIndex(a => a.Equals(nomeBusca, StringComparison.OrdinalIgnoreCase));
-
-            if (index == -1)
+            if (!int.TryParse(idBusca, out int index) || index < 0 || index >= alunos.Count)
             {
-                Console.WriteLine($"\nAluno '{nomeBusca}' não encontrado.\n");
+                Console.WriteLine($"\nID '{idBusca}' inválido ou aluno não encontrado. Olhe para a lista e tente de novo.\n");
                 continue;
             }
 
