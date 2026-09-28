@@ -20,7 +20,7 @@
             switch (intOpcao)
             {
                 case 1: CadastrarAluno(); break;
-                case 2: LarcarNotas(); break;
+                case 2: LancarNotas(); break;
                 case 3: CalcularMedia(); break;
                 case 4: Console.WriteLine("\nEncerrando o sistema . . ."); return;
             }
@@ -54,7 +54,7 @@
         }
     }
 
-    private static void LarcarNotas()
+    private static void LancarNotas()
     {
         Console.WriteLine("\n__LANÇAR NOTAS__\n");
 
@@ -74,19 +74,17 @@
                 j++;
             }
 
-            Console.WriteLine("\nDigite o NOME do aluno para lançar as notas (ou aperte Enter para voltar):");
-            string? nomeBusca = Console.ReadLine();
+            Console.WriteLine("\nDigite o ID do aluno para lançar as notas (ou aperte Enter para voltar):");
+            string? inputId = Console.ReadLine();
 
-            if (string.IsNullOrWhiteSpace(nomeBusca))
+            if (string.IsNullOrWhiteSpace(inputId))
             {
                 break;
             }
 
-            int index = alunos.FindIndex(a => a.Equals(nomeBusca, StringComparison.OrdinalIgnoreCase));
-
-            if (index == -1)
+            if (!int.TryParse(inputId, out int index) || index < 0 || index >= alunos.Count)
             {
-                Console.WriteLine($"\nAluno '{nomeBusca}' não encontrado. Olhe para a lista e de novo.\n");
+                Console.WriteLine($"\nID '{inputId}' inválido ou aluno não encontrado. Olhe para a lista e tente de novo.\n");
                 continue;
             }
 
