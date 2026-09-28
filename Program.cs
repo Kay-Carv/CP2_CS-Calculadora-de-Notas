@@ -1,6 +1,7 @@
 ﻿class Program
 {
     static List<String> alunos = new List<String>();
+    static List<double[]> notas = new List<double[]>();
 
 
     static void Main()
@@ -19,7 +20,7 @@
             
             switch (intOpcao) {
                 case 1: CadastrarAluno(); break;
-                case 2: break;
+                case 2: LarcarNotas(); break;
                 case 3: break;
                 case 4: Console.WriteLine("\nEncerrando o sistema . . ."); return;
             }
@@ -48,6 +49,71 @@
 
             alunos.Add(aluno);
             Console.WriteLine($"Aluno '{aluno}' cadastrado com sucesso!\n");
+        }
+    }
+
+    private static void LarcarNotas()
+    {
+        Console.WriteLine("\n__LANÇAR NOTAS__\n");
+
+        if (alunos.Count == 0)
+        {
+            Console.WriteLine("Nenhum aluno cadastrado no sistema ainda.\n");
+            return;
+        }
+
+        while (true)
+        {
+            Console.WriteLine("Lista de Alunos:");
+            int j = 0;
+            foreach (string aluno in alunos)
+            {
+                Console.WriteLine($"ID: {j} | Nome: {aluno}");
+                j ++;
+            }
+
+            Console.WriteLine("\nDigite o NOME do aluno para lançar as notas (ou aperte Enter para voltar):");
+            string? nomeBusca = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(nomeBusca))
+            {
+                break;
+            }
+
+            int index = alunos.FindIndex(a => a.Equals(nomeBusca, StringComparison.OrdinalIgnoreCase));
+
+            if (index == -1)
+            {
+                Console.WriteLine($"\nAluno '{nomeBusca}' não encontrado. Olhe para a lista e de novo.\n");
+                continue;
+            }
+
+            double[] notasAtuais = new double[3];
+
+            Console.WriteLine($"\nLançando notas para: {alunos[index]}");
+            for (int i = 0; i < 3; i++)
+            {
+                double notaValida;
+                while (true)
+                {
+                    Console.Write($"Atribua a nota ao aluno\n- Digite a {i + 1}ª nota (de 0 a 10): ");
+                    string? strNota = Console.ReadLine();
+
+                    if (double.TryParse(strNota, out notaValida) && notaValida>= 0 && notaValida <= 10)
+                    {
+                        break;
+                    }
+                    Console.WriteLine($"Valor de nota ({strNota}) inválido! Digite um número entre 0 e 10");
+                }
+
+                notasAtuais[i] = notaValida;
+            }
+
+            notas[index] = notasAtuais;
+
+            Console.WriteLine($"\nNotas lançadas com sucesso para o aluno '{alunos[index]}'!!");
+
+            break;
         }
     }
 }
